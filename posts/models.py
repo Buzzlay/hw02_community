@@ -3,14 +3,14 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class Group(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
 
     def __str__(self):
-        group_name = self.title
-        return group_name
+        return self.title
 
 
 class Post(models.Model):
@@ -26,10 +26,8 @@ class Post(models.Model):
                                )
     group = models.ForeignKey(
                               Group,
+                              related_name="group_posts",
                               on_delete=models.SET_NULL,
                               blank=True,
                               null=True
                               )
-
-
-
